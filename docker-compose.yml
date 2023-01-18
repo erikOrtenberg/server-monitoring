@@ -1,0 +1,16 @@
+version: "3.9"
+services: 
+  grafana:
+    image: grafana/grafana:8.2.6
+    ports:
+      - "3000:3000"
+  prometheus:
+    image: prom/prometheus:v2.41.0
+    network_mode: "host"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+    command: --web.enable-lifecycle --config.file=/etc/prometheus/prometheus.yml
+
+volumes:
+  prometheus-data:
